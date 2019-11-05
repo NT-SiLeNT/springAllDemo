@@ -1,5 +1,6 @@
 package com.wx.springBoot.demo01.web.controller;
 
+import com.wx.springBoot.demo01.common.annotation.Log;
 import com.wx.springBoot.demo01.service.impl.StudentServiceImpl;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -20,5 +21,23 @@ public class TestController {
     public String test(){
         logger.info("请求成功！");
         return "success";
+    }
+    @Log("执行方法一")
+    @GetMapping("/one")
+    public void methodOne(String name) {
+        logger.info("请求成功！");
+    }
+
+    @Log("执行方法二")
+    @GetMapping("/two")
+    public void methodTwo() throws InterruptedException {
+        logger.info("请求成功！");
+        Thread.sleep(2000);
+    }
+
+    @Log("执行方法三")
+    @GetMapping("/three")
+    public void methodThree(String name, String age) {
+        logger.info("请求成功！");
     }
 }
