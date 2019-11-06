@@ -5,6 +5,9 @@ import com.wx.springBoot.demo01.common.util.IPUtils;
 import com.wx.springBoot.demo01.dao.SysLogDao;
 import com.wx.springBoot.demo01.model.pojo.SysLog;
 import com.wx.springBoot.demo01.common.annotation.Log;
+import com.wx.springBoot.demo01.service.impl.StudentServiceImpl;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -24,19 +27,27 @@ import java.util.Date;
  * @Description
  * @date 2019-11-05 17:20
  */
+//切面
 @Aspect
 @Component
 public class LogAspect {
+
+    private static final Logger logger = LogManager.getLogger(StudentServiceImpl.class);
+
     @Autowired
     private SysLogDao sysLogDao;
 
+    /**
+     * 切点
+     */
     @Pointcut("@annotation(com.wx.springBoot.demo01.common.annotation.Log)")
     public void pointcut() {
-
+        logger.info("进入方法pointcut");
     }
 
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint point) {
+        logger.info("进入方法around");
         Object result = null;
         long beginTime = System.currentTimeMillis();
         try {
